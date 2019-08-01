@@ -27,11 +27,20 @@ public class Task {
     public Task() {
     }
 
-    public Task(String description, Category category, boolean isReady, boolean isArchived) {
+    public Task(long id, String description, Category category, boolean isReady, boolean isArchived) {
+        this.id = id;
         this.description = description;
         this.category = category;
         this.isReady = isReady;
         this.isArchived = isArchived;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getDescription() {

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Main Page</title>
+  <link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/style.css}"/>
+</head>
+<body>
+
+
+<form method="post" action="/addTask">
+  <label> Description
+    <input type="text" name="description"> </input>
+  </label>
+
+  <label> Category
+    <select name="category">
+      <option value="WORK">WORK</option>
+      <option value="HOUSEHOLD">HOUSEHOLD</option>
+      <option value="PRIVATE">PRIVATE</option>
+    </select>
+  </label>
+  <label> Is Ready?
+    <input type="checkbox" name="isReady" value="isReady"/>
+  </label>
+  <label>Is Archive?
+    <input type="checkbox" name="isArchive" value="isArchive"/>
+  </label>
+  <button type="submit">Add</button>
+</form>
+
+<a href="/">Powrót</a>
+
+</body>
+</html>

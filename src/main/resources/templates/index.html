@@ -3,32 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <title>Main Page</title>
+  <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="../static/style.css" th:href="@{/style.css}"/>
 </head>
 <body>
 
 
-<table>
+<table class="table table table-dark">
+  <thead>
   <tr>
-    <th>ID</th>
-    <th>Description</th>
-    <th>Category</th>
-    <th>Is Ready?</th>
-    <th>Is Archived?</th>
-
+    <th scope="col">ID</th>
+    <th scope="col">Description</th>
+    <th scope="col">Category</th>
+    <th scope="col">Is Ready?</th>
+    <th scope="col">Is Archived?</th>
+    <th scope="col">Edit</th>
   </tr>
-  <tr th:each="transaction: ${transactions}">
-    <td th:text="${transaction.getId()}"></td>
-    <td th:text="${transaction.getTType()}"></td>
-    <td th:text="${transaction.getDescription()}"></td>
-    <td th:text="${transaction.getAmount()}"></td>
-    <td th:text="${transaction.getDate()}"></td>
-
-
+  </thead>
+  <tbody>
+  <tr th:each="task: ${tasks}">
+    <td scope="row" th:text="${task.getId()}"></td>
+    <td th:text="${task.getDescription()}"></td>
+    <td th:text="${task.getCategory()}"></td>
+    <td><input type="checkbox" name="active" th:checked="${task.isReady()}" disabled/></td>
+    <td><input type="checkbox" name="active" th:checked="${task.isArchived()}" disabled/></td>
+    <td><a th:href="@{'Details/' + ${task.getId()}}">edit</a></td>
   </tr>
-
-
-
-
+  </tbody>
+</table>
+<button class="btn btn-primary"><a th:href="@{'add/'}">Add Task</a></button>
 
 </body>
 </html>
