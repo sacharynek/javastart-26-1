@@ -5,17 +5,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-//użyj lombok'a
+
 @Entity
 public class Task {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String description;
-    private Category category;
+    // private Category category;
     private boolean isReady; //wyświetla się normalnie
     private boolean isArchived; //wyświetla się tylko w archiwum
 
@@ -27,10 +27,10 @@ public class Task {
     public Task() {
     }
 
-    public Task(long id, String description, Category category, boolean isReady, boolean isArchived) {
-        this.id = id;
+    public Task(String description, Category category, boolean isReady, boolean isArchived) {
+
         this.description = description;
-        this.category = category;
+        //   this.category = category;
         this.isReady = isReady;
         this.isArchived = isArchived;
     }
@@ -51,13 +51,13 @@ public class Task {
         this.description = description;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+//    public Category getCategory() {
+//        return category;
+//    }
+//
+//    public void setCategory(Category category) {
+//        this.category = category;
+//    }
 
     public boolean isReady() {
         return isReady;
@@ -75,28 +75,6 @@ public class Task {
         isArchived = archived;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
 }
+

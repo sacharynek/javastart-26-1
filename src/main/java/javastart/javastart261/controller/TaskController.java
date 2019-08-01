@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +20,25 @@ public class TaskController {
 
     private List<Task> tasks;
 
+    EntityManager entityManager ;
+
     public TaskController() {
         tasks = new ArrayList<>();
-        tasks.add(new Task(0, "pierwszy task", Category.HOUSEHOLD, true, false));
-        tasks.add(new Task(1, "drugi task", Category.PRIVATE, false, true));
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("db");
+        entityManager = entityManagerFactory.createEntityManager();
+        addTestData();
     }
+
+    private void addTestData() {
+        //entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(new Task("Masło", Category.HOUSEHOLD, true, true));
+        entityManager.persist(new Task("Chleb", Category.WORK, true, false));
+        entityManager.persist(new Task("Kajzerka",Category.PRIVATE, false, false));
+        entityManager.getTransaction().commit();
+        //entityManager.close();
+    }
+
 
     //wszystkie
     @GetMapping("/")
@@ -53,7 +70,7 @@ public class TaskController {
     @GetMapping("/add")
     public String add(Model model) {
 
-        model.addAttribute("task", tasks.get(0));
+        model.addAttribute("task", new Task());
         return "Add";
     }
 
@@ -63,13 +80,20 @@ public class TaskController {
             @RequestParam() String category,
             @RequestParam(required = false) String isReady,
             @RequestParam(required = false) String isArchive) {
+
+      //  entityManager = entityManagerFactory.createEntityManager();
+
         Task task = new Task();
         task.setDescription(description);
-        task.setCategory(Category.valueOf(category));
+//        task.setCategory(Category.valueOf(category));
         task.setReady(null != isReady);
         task.setArchived(null != isArchive);
 
-        tasks.add(task);
+//        tasks.add(task);
+        entityManager.getTransaction().begin();
+        entityManager.persist(task);
+        entityManager.getTransaction().commit();
+       // entityManager.close();
 
         return "redirect:/";
     }
@@ -94,7 +118,7 @@ public class TaskController {
         Task task = tasks.get(id);
 
         task.setDescription(description);
-        task.setCategory(Category.valueOf(category));
+//        task.setCategory(Category.valueOf(category));
         task.setReady(null != isReady);
         task.setArchived(null != isArchive);
 
