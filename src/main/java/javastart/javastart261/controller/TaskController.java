@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +31,11 @@ public class TaskController {
     }
 
     private void addTestData() {
-        //entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.persist(new Task("Masło", Category.HOUSEHOLD, true, true));
-        entityManager.persist(new Task("Chleb", Category.WORK, true, false));
-        entityManager.persist(new Task("Kajzerka",Category.PRIVATE, false, false));
+        entityManager.persist(new Task("Kup Masło", Category.HOUSEHOLD, false, false, LocalDate.of(2019, 8,28), LocalDate.of(2019, 9, 1) ));
+        entityManager.persist(new Task("Idź do okulisty", Category.PRIVATE, false, false, LocalDate.of(2019, 8,28), LocalDate.of(2019, 9, 1)));
+        entityManager.persist(new Task("Wyślij Raport", Category.WORK, false, false, LocalDate.of(2019, 8,28), LocalDate.of(2019, 9, 1)));
         entityManager.getTransaction().commit();
-        //entityManager.close();
     }
 
 
