@@ -38,7 +38,6 @@ public class TaskController {
         entityManager.getTransaction().commit();
     }
 
-
     //wszystkie
     @GetMapping("/")
     public String displayAll(Model model) {
